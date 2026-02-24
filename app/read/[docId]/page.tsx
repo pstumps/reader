@@ -7,7 +7,7 @@ export default async function ReadPage( {params} : {params: Promise<{ docId: str
 
     return (
         <div style={{ padding: 24 }}>
-            <PdfReader fileUrl={fileUrl} />
+            <PdfReader fileUrl={fileUrl} docId={docId} />
         </div>
     );
 }

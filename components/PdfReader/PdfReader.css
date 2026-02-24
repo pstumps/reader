@@ -1,0 +1,174 @@
+/* ── pdf.js text layer (subset from pdfjs-dist/web/pdf_viewer.css) ── */
+
+.textLayer {
+  position: absolute;
+  text-align: initial;
+  inset: 0;
+  overflow: clip;
+  opacity: 1;
+  line-height: 1;
+  -webkit-text-size-adjust: none;
+  -moz-text-size-adjust: none;
+  text-size-adjust: none;
+  forced-color-adjust: none;
+  transform-origin: 0 0;
+  caret-color: CanvasText;
+  z-index: 2;
+}
+
+.textLayer :is(span, br) {
+  color: transparent;
+  position: absolute;
+  white-space: pre;
+  cursor: text;
+  transform-origin: 0% 0%;
+}
+
+.textLayer {
+  --min-font-size: 1;
+  --text-scale-factor: calc(var(--total-scale-factor) * var(--min-font-size));
+  --min-font-size-inv: calc(1 / var(--min-font-size));
+}
+
+.textLayer > :not(.markedContent),
+.textLayer .markedContent span:not(.markedContent) {
+  z-index: 1;
+  --font-height: 0;
+  font-size: calc(var(--text-scale-factor) * var(--font-height));
+  --scale-x: 1;
+  --rotate: 0deg;
+  transform: rotate(var(--rotate)) scaleX(var(--scale-x))
+    scale(var(--min-font-size-inv));
+}
+
+.textLayer .markedContent {
+  display: contents;
+}
+
+.textLayer ::-moz-selection {
+  background: rgba(0, 0, 255, 0.25);
+}
+
+.textLayer ::selection {
+  background: rgba(0, 0, 255, 0.25);
+}
+
+/* ── Highlight overlay rectangles ── */
+
+.pdf-highlight-rect {
+  background: rgba(255, 230, 0, 0.35);
+  mix-blend-mode: multiply;
+  border-radius: 2px;
+  transition: background 0.15s;
+  cursor: pointer;
+}
+
+.pdf-highlight-rect:hover {
+  background: rgba(255, 200, 0, 0.5);
+}
+
+/* ── Selection toolbar ── */
+
+.selection-toolbar {
+  display: flex;
+  gap: 2px;
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 8px;
+  padding: 4px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  animation: toolbar-appear 0.12s ease-out;
+}
+
+@keyframes toolbar-appear {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -110%);
+  }
+}
+
+.selection-toolbar button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #cdd6f4;
+  font-size: 13px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.selection-toolbar button:hover:not(:disabled) {
+  background: #313244;
+}
+
+.selection-toolbar button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Explanation panel ── */
+
+.explanation-panel {
+  margin-top: 12px;
+  background: #1e1e2e;
+  border: 1px solid #313244;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #cdd6f4;
+  font-size: 14px;
+  line-height: 1.6;
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.explanation-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  border-bottom: 1px solid #313244;
+  font-size: 13px;
+}
+
+.explanation-close-btn {
+  background: none;
+  border: none;
+  color: #cdd6f4;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 0 4px;
+}
+
+.explanation-close-btn:hover {
+  color: #f38ba8;
+}
+
+.explanation-panel-body {
+  padding: 14px;
+  overflow-y: auto;
+}
+
+.explanation-loading {
+  color: #a6adc8;
+  font-style: italic;
+}
+
+.explanation-error {
+  color: #f38ba8;
+}
+
+/* ── Page wrapper ── */
+
+.pdf-page-wrapper {
+  position: relative;
+  display: inline-block;
+}
